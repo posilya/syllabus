@@ -1,0 +1,20 @@
+{
+  "name": "syllabus",
+  "version": "0.0.1",
+  "description": "Сервис создания расписаний для учебных заведений",
+  "homepage": "https://github.com/posilya/syllabus#readme",
+  "bugs": {
+    "url": "https://github.com/posilya/syllabus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/posilya/syllabus.git"
+  },
+  "license": "MIT",
+  "author": "Илья Посаженников <pos_ilya@vk.com>",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
