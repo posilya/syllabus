@@ -1,6 +1,7 @@
 {
   "name": "syllabus",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "private": true,
   "description": "Сервис создания расписаний для учебных заведений",
   "homepage": "https://github.com/posilya/syllabus#readme",
   "bugs": {
@@ -13,11 +14,17 @@
   "license": "MIT",
   "author": "Илья Посаженников <pos_ilya@vk.com>",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.22.2",
+    "hbs": "^4.2.1",
+    "http-errors": "~1.6.3",
+    "morgan": "^1.11.0",
+    "stylus": "0.54.5"
   }
 }
