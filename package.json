@@ -1,30 +1,38 @@
 {
-  "name": "syllabus",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Сервис создания расписаний для учебных заведений",
-  "homepage": "https://github.com/posilya/syllabus#readme",
-  "bugs": {
-    "url": "https://github.com/posilya/syllabus/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/posilya/syllabus.git"
-  },
-  "license": "MIT",
-  "author": "Илья Посаженников <pos_ilya@vk.com>",
-  "type": "module",
-  "main": "app.js",
-  "scripts": {
-    "start": "node ./bin/www"
-  },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "^4.22.2",
-    "hbs": "^4.2.1",
-    "http-errors": "~1.6.3",
-    "morgan": "^1.11.0",
-    "stylus": "0.54.5"
-  }
+    "name": "syllabus",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Сервис создания расписаний для учебных заведений",
+    "homepage": "https://github.com/posilya/syllabus#readme",
+    "bugs": {
+        "url": "https://github.com/posilya/syllabus/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/posilya/syllabus.git"
+    },
+    "license": "MIT",
+    "author": "Илья Посаженников <pos_ilya@vk.com>",
+    "type": "module",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "format": "prettier --write .",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "dependencies": {
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "pg": "^8.22.0"
+    },
+    "devDependencies": {
+        "@vitest/eslint-plugin": "^1.6.21",
+        "eslint": "^10.6.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.6",
+        "eslint-plugin-simple-import-sort": "^13.0.0",
+        "eslint-plugin-unicorn": "^70.0.0",
+        "prettier": "^3.9.4"
+    }
 }
