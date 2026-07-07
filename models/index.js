@@ -4,6 +4,9 @@ import path from 'path';
 
 import 'dotenv/config.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const pool = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -12,9 +15,6 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
 });
 
-export const queriesDir = path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    'sql', 'lesson_schedule'
-);
+export const queriesDir = path.join(__dirname, 'sql', 'lesson_schedule');
 
 export default pool;
