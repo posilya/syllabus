@@ -15,6 +15,6 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
 });
 
-export const queriesDir = path.join(__dirname, 'sql', 'lesson_schedule');
+export const queriesDir = path.join(__dirname, 'sql');
 
 export default pool;
