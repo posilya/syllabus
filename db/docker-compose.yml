@@ -7,6 +7,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: syllabus
+    volumes:
+      - postgres_data:/var/lib/postgresql 
 
   pgadmin:
     image: dpage/pgadmin4:9.8
@@ -22,8 +24,6 @@ services:
 
       # Don't require a "master" password after logging in
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
-    volumes:
-      - postgres_data:/var/lib/postgresql
     configs:
       - source: pgadmin-pgpass
         target: /config/pgpass
