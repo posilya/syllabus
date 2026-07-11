@@ -1,7 +1,7 @@
 -- Список дисциплин
 CREATE TABLE IF NOT EXISTS public.disciplines (
     id               serial PRIMARY KEY,
-    discipline_name text   NOT NULL,     -- название дисциплины
+    discipline_name  text   NOT NULL,    -- название дисциплины
     short_name       text                -- сокращённое название
 );
 
@@ -30,17 +30,16 @@ CREATE TABLE IF NOT EXISTS public.auditoriums (
 
 -- Расписание занятий
 CREATE TABLE IF NOT EXISTS public.lessons_schedule (
-    id                 serial              PRIMARY KEY,
-    study_group_id     integer,                         -- тут всё не обязательно для случаев, когда
-    teacher_id         integer,                         -- группе не назначили преподавателя или
-    discipline_id      integer,                         -- предмет, или пока не знают, какую группу
-    auditorium_id      integer,                         -- поставить преподавателю, или занятие
-                                                        -- будет в онлайне, и аудиторию тут 
-                                                        -- не указать
-    lesson_description text
-    lesson_date        date                NOT NULL,
-    time_start         time with time zone,             -- тут допускаем NULL чисто по приколу (мне 
-    time_end           time with time zone              -- кажется, будут такие ситуации), но в коде
-                                                        -- должно быть ограничение, NULL либо оба,
-                                                        -- либо никто
+    id                 serial               PRIMARY KEY,
+    study_group_id     integer,                          -- тут всё не обязательно для случаев,
+    teacher_id         integer,                          -- когда группе не назначили преподавателя
+    discipline_id      integer,                          -- или предмет, или пока не знают, какую
+    auditorium_id      integer,                          -- группу поставить преподавателю,
+                                                         -- или занятие будет в онлайне, и аудиторию 
+                                                         -- тут не указать
+    lesson_description text,
+    lesson_date        date                 NOT NULL,
+    time_start         time with time zone,              -- тут допускаем NULL чисто по приколу (мне 
+    time_end           time with time zone               -- кажется, будут такие ситуации),
+                                                         -- но в коде должно быть ограничение,
 );

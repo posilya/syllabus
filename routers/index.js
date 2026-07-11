@@ -8,7 +8,7 @@ const router = new Router();
 
 router.get('/', async (req, res) => {
     res.render('schedule/group', {
-        schedule: await getGroupScheduleByInterval(1, '2024-10-01', '2024-10-07')
+        schedule: await getGroupScheduleByInterval(1, '2026-07-01', '2026-08-31')
     });
 });
 
