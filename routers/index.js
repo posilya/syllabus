@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { getGroupScheduleByInterval } from '../models/lesson_schedule.js';
+import { getGroupScheduleByInterval } from '../models/group.js';
 
 import groupsRouter from './groups.js';
 
