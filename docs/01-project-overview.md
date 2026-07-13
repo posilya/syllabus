@@ -19,8 +19,7 @@
 4. Студенты и преподаватели открывают сайт и просматривают расписание.
 5. При изменении расписания процесс повторяется.
 
-obsidian://open?vault=Obsidian%20Vault&file=image.png
-
+<img width="1334" height="570" alt="image" src="https://github.com/user-attachments/assets/6bfee108-0b5e-4aec-b370-4a84cde4136e" />
 ### 3.2. Проблемы текущего процесса
 
 - расписание ведётся вручную;
@@ -39,6 +38,7 @@ obsidian://open?vault=Obsidian%20Vault&file=image.png
 5. После сохранения становится доступно для просмотра.
 6. Студенты и преподаватели просматривают актуальное расписание без авторизации.
 
+<img width="1341" height="639" alt="image" src="https://github.com/user-attachments/assets/0663dd45-4ce4-4f78-a094-4dc4e9b57860" />
 
 ### 4.2. Отличия от текущего процесс
 
