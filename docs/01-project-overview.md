@@ -21,6 +21,7 @@
 5. При изменении расписания процесс повторяется.
 
 <img width="1334" height="570" alt="image" src="https://github.com/user-attachments/assets/6bfee108-0b5e-4aec-b370-4a84cde4136e" />
+
 ### 3.2. Проблемы текущего процесса
 
 - расписание ведётся вручную;
