@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS public.lessons_schedule (
                                                          -- тут не указать
     lesson_description text,
     lesson_date        date                 NOT NULL,
-    time_start         time with time zone,              -- тут допускаем NULL чисто по приколу (мне 
-    time_end           time with time zone               -- кажется, будут такие ситуации),
+    time_start         time,                             -- тут допускаем NULL чисто по приколу (мне 
+    time_end           time                              -- кажется, будут такие ситуации),
                                                          -- но в коде должно быть ограничение,
 );
