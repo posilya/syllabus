@@ -1,6 +1,6 @@
 {{> main/head }}
 
-<h1>Расписание группы {{group.group_name}}{{#if group.short_name}}{{group.short_group_name}}{{/if}}, {{group.course}} курс</h1>
+<h1>Расписание группы {{group.group_name}}{{#if group.short_name}} ({{group.short_name}}){{/if}}, {{group.course}} курс</h1>
 <p><i>тест)</i></p>
 
 <table>
@@ -16,9 +16,9 @@
             <tr>
                 <th>{{this.lesson_schedule_id}}</th>
                 <td>{{this.lesson_date}}</td>
-                <td>{{this.time_start}}&nbsp;&mdash; {{this.time_end}}</td>
-                <td>{{this.auditorium_number}} ({{this.auditorium_floor}} этаж, id {{this.auditorium_id}})</td>
-                <td>{{this.teacher_name}} (id {{this.teacher_id}})</td>
+                <td>{{#if this.time_start}}{{this.time_start}}&nbsp;&mdash; {{this.time_end}}{{else}}<i>время не указано</i>{{/if}}</td>
+                <td>{{#if this.auditorium_id}}{{this.auditorium_number}} ({{this.auditorium_floor}} этаж, id {{this.auditorium_id}}){{/if}}</td>
+                <td>{{#if this.teacher_id}}{{this.teacher_name}} (id {{this.teacher_id}}){{/if}}</td>
             </tr>
         {{/each}}
     </tbody>
