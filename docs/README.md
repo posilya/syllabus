@@ -8,9 +8,9 @@
 
 3. [Пользователи, роли и права доступа](02-users-roles-access.md)
 
-5. Функциональные требования
+4. [Функциональные требования](03-functional-requirements.md)
 
-6. Нефункциональные требования
+5. [Нефункциональные требования](04-non-functional-requirements.md)
 
 7. User Story и Use Case
 
