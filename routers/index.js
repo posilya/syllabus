@@ -2,7 +2,8 @@ import { Router } from 'express';
 
 import { getGroupScheduleByInterval } from '../models/group.js';
 
-import groupsRouter from './groups.js';
+import groupRouter from './group.js';
+import teacherRouter from './teacher.js';
 
 const router = new Router();
 
@@ -12,6 +13,7 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.use('/group', groupsRouter);
+router.use('/group', groupRouter);
+router.use('/teacher', teacherRouter);
 
 export default router;
