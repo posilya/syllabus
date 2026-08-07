@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import { getGroupList, getGroupInfo, getGroupScheduleByInterval } from '../models/group.js';
+import { getGroupsList, getGroupInfo, getGroupScheduleByInterval } from '../models/group.js';
 
 const router = new Router();
 
 router.get('/', async (req, res) => {
-    const groups = await getGroupList();
+    const groups = await getGroupsList();
 
     res.render('group/list', { groups });
 });

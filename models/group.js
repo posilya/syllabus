@@ -5,7 +5,7 @@ import db, { queriesDir } from './index.js';
 
 /** Коллекция SQL-запросов */
 const sql = {
-    getList: fs.readFileSync(path.join(queriesDir, 'group', 'get', 'list.sql'), 'utf8'),
+    getGroupsList: fs.readFileSync(path.join(queriesDir, 'group', 'get', 'list.sql'), 'utf8'),
     getGroupInfo: fs.readFileSync(path.join(queriesDir, 'group', 'get', 'group_info.sql'), 'utf8'),
     getScheduleByInterval: fs.readFileSync(
         path.join(queriesDir, 'group', 'get', 'schedule_by_interval.sql'),
@@ -17,8 +17,8 @@ const sql = {
  * Получить список групп, отсортированный по номеру курса и названию по алфавиту
  * @returns {Promise<Object[]>}
  */
-export async function getGroupList() {
-    const { rows } = await db.query(sql.getList);
+export async function getGroupsList() {
+    const { rows } = await db.query(sql.getGroupsList);
     return rows;
 }
 
