@@ -16,7 +16,7 @@
     "type": "module",
     "main": "app.js",
     "scripts": {
-        "start": "node app.js",
+        "server": "node app.js",
         "format": "prettier --write .",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix"
