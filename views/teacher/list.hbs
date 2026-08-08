@@ -1,0 +1,16 @@
+{{> main/head }}
+
+<h1>Список преподавателей</h1>
+<p><i>тест)</i></p>
+
+{{#if teachers.length}}
+<ul>
+    {{#each teachers}}
+    <li><a href="/teacher/{{id}}"><b>{{this.last_name}}</b> {{this.first_name}} {{this.patronymic}}</a></li>
+    {{/each}}
+</ul>
+{{else}}
+<p>Список преподавателей пуст :(</p>
+{{/if}}
+
+{{> main/footer }}

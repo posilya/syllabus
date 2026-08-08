@@ -1,0 +1,38 @@
+@import url('colors.css');
+
+.navbar {
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    border-bottom: 2px solid var(--color-1);
+    background-color: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(7px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--color-black);
+}
+
+.navbar > .service-name > a {
+    color: var(--color-main-blue);
+    font-weight: bold;
+}
+
+.navbar > .menu > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar > .menu > ul > li {
+    display: inline-block;
+}
+
+.navbar > .menu > ul > li:not(:first-child) {
+    margin-left: 10px;
+}

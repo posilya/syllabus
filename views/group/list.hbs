@@ -1,0 +1,21 @@
+{{> main/head }}
+
+<h1>Список групп</h1>
+<p><i>тест)</i></p>
+
+<table>
+    <thead>
+        <th>Группа</th>
+        <th>Курс</th>
+    </thead>
+    <tbody>
+        {{#each groups}}
+            <tr>
+                <td><a href="/group/{{this.id}}">{{this.group_name}}</a>{{#if this.short_name}} ({{this.short_name}}){{/if}}</td>
+                <td>{{this.course}} курс</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{> main/footer }}

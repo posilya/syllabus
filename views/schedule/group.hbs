@@ -1,0 +1,27 @@
+{{> main/head }}
+
+<h1>Расписание для группы</h1>
+<p><i>тест)</i></p>
+
+<table>
+    <thead>
+        <th>id</th>
+        <th>Дата</th>
+        <th>Время</th>
+        <th>Аудитория</th>
+        <th>Преподаватель</th>
+    </thead>
+    <tbody>
+        {{#each schedule}}
+            <tr>
+                <th>{{this.id}}</th>
+                <td>{{this.lesson_date}}</td>
+                <td>{{this.time_start}}&nbsp;&mdash; {{this.time_end}}</td>
+                <td>{{this.auditorium_number}} ({{this.auditorium_floor}} этаж, id {{this.auditorium_id}})</td>
+                <td>{{this.teacher_name}} (id {{this.teacher_id}})</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{> main/footer }}
