@@ -25,7 +25,7 @@ export async function getGroupsList() {
 /**
  * Получить информацию о группе (имя, короткое имя и номер курса)
  * @param {number} id - идентификатор группы
- * @returns {object}
+ * @returns {Object}
  */
 export async function getGroupInfo(id) {
     const { rows } = await db.query(sql.getGroupInfo, [id]);
@@ -33,11 +33,11 @@ export async function getGroupInfo(id) {
 }
 
 /**
- * Получение расписания группы в заданном интервале
+ * Получить расписание группы в заданном интервале
  * @param {number} groupId - идентификатор группы
  * @param {string} dateStart - дата начала интервала в формате `YYYY-MM-DD`
  * @param {string} dateEnd - дата начала интервала в формате `YYYY-MM-DD
- * @returns {Promise<object[]>}
+ * @returns {Promise<Object[]>}
  */
 export async function getGroupScheduleByInterval(groupId, dateStart, dateEnd) {
     const { rows } = await db.query(sql.getScheduleByInterval, [groupId, dateStart, dateEnd]);
