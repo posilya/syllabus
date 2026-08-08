@@ -33,13 +33,12 @@ CREATE TABLE IF NOT EXISTS public.lessons_schedule (
     id                 serial               PRIMARY KEY,
     study_group_id     integer,                          -- тут всё не обязательно для случаев,
     teacher_id         integer,                          -- когда группе не назначили преподавателя
-    discipline_id      integer,                          -- или предмет, или пока не знают, какую
+    discipline_id      integer              NOT NULL,    -- или предмет, или пока не знают, какую
     auditorium_id      integer,                          -- группу поставить преподавателю,
                                                          -- или занятие будет в онлайне, и аудиторию 
                                                          -- тут не указать
     lesson_description text,
     lesson_date        date                 NOT NULL,
-    time_start         time,                             -- тут допускаем NULL чисто по приколу (мне 
-    time_end           time                              -- кажется, будут такие ситуации),
-                                                         -- но в коде должно быть ограничение,
+    time_start         time,                NOT NULL,
+    time_end           time                 NOT NULL
 );
