@@ -1,3 +1,5 @@
+-- !! TODO обновить
+
 -- 1. Заполнение списка дисциплин
 INSERT INTO public.disciplines (discipline_name, short_name) VALUES
 ('Летняя производственная практика', 'Практика'),
