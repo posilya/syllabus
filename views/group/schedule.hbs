@@ -10,6 +10,7 @@
             <th>Дата</th>
             <th>Время</th>
             <th>Аудитория</th>
+            <th>Предмет</th>
             <th>Преподаватель</th>
         </tr>
     </thead>
@@ -20,6 +21,7 @@
                 <td>{{this.lesson_date}}</td>
                 <td>{{this.time_start}}&nbsp;&mdash; {{this.time_end}}</td>
                 <td>{{#if this.auditorium_id}}{{this.auditorium_number}} ({{this.auditorium_floor}} этаж, id {{this.auditorium_id}}){{/if}}</td>
+                <td>{{this.discipline_name}}</td>
                 <td>{{#if this.teacher_id}}{{this.teacher_name}} (id {{this.teacher_id}}){{/if}}</td>
             </tr>
         {{/each}}
