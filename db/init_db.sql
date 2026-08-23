@@ -39,6 +39,16 @@ CREATE TABLE IF NOT EXISTS public.lessons_schedule (
                                                          -- тут не указать
     lesson_description text,
     lesson_date        date                 NOT NULL,
-    time_start         time,                NOT NULL,
+    time_start         time                 NOT NULL,
     time_end           time                 NOT NULL
+);
+
+-- Пользователи
+CREATE TABLE IF NOT EXISTS public.users (
+    id            serial                   PRIMARY KEY,
+    full_name     text                     NOT NULL,               -- ФИО пользователя
+    email         text                     NOT NULL UNIQUE,
+    password_hash text                     NOT NULL UNIQUE,
+    created_at    timestamp with time zone NOT NULL DEFAULT NOW(),
+    updated_at    timestamp with time zone NOT NULL DEFAULT NOW()
 );
