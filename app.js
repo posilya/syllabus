@@ -1,8 +1,11 @@
 import express from 'express';
+import session from 'express-session';
 import hbs from 'hbs';
 
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+
+import { config } from './config.js';
 
 import router from './routers/index.js';
 
@@ -15,6 +18,7 @@ const viewsPath = path.join(__dirname, 'views');
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+app.use(session(config.session))
 
 app.use('/', router);
 
