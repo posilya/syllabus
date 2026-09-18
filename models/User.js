@@ -3,17 +3,32 @@ import fs from 'fs';
 import path from 'path';
 
 import db, { queriesDir } from './index.js';
+import { config } from '../config.js';
+
+import { UserAlreadyExistsError } from '../errors/index.js';
 
 const sql = {
     create: fs.readFileSync(path.join(queriesDir, 'user', 'create', 'user.sql'), 'utf8')
 };
 
 export class User {
-    static async create(name, email, plainPassword) {
-        const passwordHash = await bcrypt.hash(plainPassword, 10);
+    static async create(name, email, plainPassword, superuser = false) {
+        const passwordHash = await bcrypt.hash(plainPassword, config.auth.saltRound);
+        const normalizedEmail = email?.toLowerCase().trim();
 
-        const { rows } = await db.query(sql.create, [name, email, passwordHash]);
-        return rows[0].id;
+        try {
+            const { rows } = await db.query(sql.create, [
+                name,
+                normalizedEmail,
+                passwordHash,
+                superuser
+            ]);
+            return rows[0].id;
+        } catch (err) {
+            if (err.code === '23505') {
+                throw new UserAlreadyExistsError();
+            }
+            throw err;
+        }
     }
 }
-
