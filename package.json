@@ -30,6 +30,7 @@
         "pg": "^8.22.0"
     },
     "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
         "@types/express": "^5.0.6",
         "@vitest/eslint-plugin": "^1.6.21",
         "eslint": "^10.6.0",
