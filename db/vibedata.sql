@@ -1,67 +1,121 @@
--- !! TODO обновить
+-- ============================================
+-- Справочники
+-- ============================================
 
--- 1. Заполнение списка дисциплин
 INSERT INTO public.disciplines (discipline_name, short_name) VALUES
-('Летняя производственная практика', 'Практика'),
-('Базы данных', 'БД'),
-('Программирование', 'Программ.'),
-('Иностранный язык в сфере профессиональной коммуникации', 'Иностр. яз.'),
-('Самостоятельная работа', 'СР'),
-('Защита курсовой работы', 'Защита КР');
+    ('Математика',        'Матем'),
+    ('Русский язык',      'Рус.яз'),
+    ('Физика',            'Физ'),
+    ('История',           'Ист'),
+    ('Английский язык',   'Англ'),
+    ('Информатика',       'Информ');
 
--- 2. Заполнение списка преподавателей
 INSERT INTO public.teachers (first_name, last_name, patronymic) VALUES
-('Иван', 'Иванов', 'Иванович'),
-('Петр', 'Петров', 'Петрович'),
-('Мария', 'Сидорова', 'Сергеевна'),
-('Алексей', 'Смирнов', 'Алексеевич');
+    ('Ольга',    'Смирнова',   'Ивановна'),
+    ('Дмитрий',  'Кузнецов',   'Александрович'),
+    ('Елена',    'Попова',     'Сергеевна'),
+    ('Андрей',   'Волков',     'Николаевич'),
+    ('Мария',    'Соколова',   'Петровна'),
+    ('Игорь',    'Морозов',    'Дмитриевич');
 
--- 3. Заполнение списка групп
 INSERT INTO public.study_groups (group_name, short_name, course) VALUES
-('ИВТ-21-1', 'ИВТ-21', 3),
-('ИВТ-22-1', 'ИВТ-22', 2),
-('ПИ-23-1', 'ПИ-23', 1);
+    ('Группа 101', '101',  1),
+    ('Группа 102', '102',  1),
+    ('Группа 201', '201',  2),
+    ('Группа 301', '301',  3);
 
--- 4. Заполнение списка аудиторий
 INSERT INTO public.auditoriums (auditorium_number, floor) VALUES
-('101', 1),
-('205', 2),
-('312', 3),
-('404', 4);
+    ('101', 1),
+    ('102', 1),
+    ('205', 2),
+    ('210', 2),
+    ('305', 3);
 
--- 5. Заполнение расписания на июль и август 2026 года
-INSERT INTO public.lessons_schedule (
-    study_group_id, teacher_id, discipline_id, auditorium_id, 
-    lesson_description, lesson_date, time_start, time_end
-) VALUES
--- ИЮЛЬ 2026
--- Летняя практика для 2 курса (ежедневно, без привязки к аудитории, полный день)
-(2, 1, 1, NULL, 'Прохождение практики на предприятии', '2026-07-06', '09:00:00+05:00', '18:00:00+05:00'),
-(2, 1, 1, NULL, 'Прохождение практики на предприятии', '2026-07-07', '09:00:00+05:00', '18:00:00+05:00'),
-(2, 1, 1, NULL, 'Прохождение практики на предприятии', '2026-07-08', '09:00:00+05:00', '18:00:00+05:00'),
+-- ============================================
+-- Расписание на 1–19 сентября 2026 (будни, 4 пары в день)
+-- ============================================
 
--- Консультация перед пересдачей для 3 курса (онлайн, без аудитории)
-(1, 2, 2, NULL, 'Консультация перед пересдачей (онлайн)', '2026-07-10', '14:00:00+05:00', '15:30:00+05:00'),
+WITH date_range AS (
+    SELECT d::date AS lesson_date
+    FROM generate_series('2026-09-01'::date, '2026-09-19'::date, '1 day') AS d
+    WHERE EXTRACT(ISODOW FROM d) BETWEEN 1 AND 5   -- только Пн–Пт
+),
+time_slots (slot_num, time_start, time_end) AS (
+    VALUES
+        (1, '08:30'::time, '09:15'::time),
+        (2, '09:25'::time, '10:10'::time),
+        (3, '10:30'::time, '11:15'::time),
+        (4, '11:25'::time, '12:10'::time)
+),
+groups_cnt AS (SELECT count(*)::int AS n FROM public.study_groups),
+disc_cnt   AS (SELECT count(*)::int AS n FROM public.disciplines),
+teach_cnt  AS (SELECT count(*)::int AS n FROM public.teachers),
+aud_cnt    AS (SELECT count(*)::int AS n FROM public.auditoriums)
+INSERT INTO public.lessons_schedule
+    (study_group_id, teacher_id, discipline_id, auditorium_id,
+     lesson_description, lesson_date, time_start, time_end)
+SELECT
+    g.id,
+    (SELECT id FROM public.teachers
+       ORDER BY id
+       LIMIT 1 OFFSET ((g.id + ts.slot_num + EXTRACT(DOY FROM dr.lesson_date)::int)
+                        % (SELECT n FROM teach_cnt))),
+    (SELECT id FROM public.disciplines
+       ORDER BY id
+       LIMIT 1 OFFSET ((g.id + ts.slot_num + EXTRACT(DOY FROM dr.lesson_date)::int)
+                        % (SELECT n FROM disc_cnt))),
+    (SELECT id FROM public.auditoriums
+       ORDER BY id
+       LIMIT 1 OFFSET ((g.id + ts.slot_num) % (SELECT n FROM aud_cnt))),
+    NULL,
+    dr.lesson_date,
+    ts.time_start,
+    ts.time_end
+FROM date_range dr
+CROSS JOIN public.study_groups g
+CROSS JOIN time_slots ts
+ORDER BY dr.lesson_date, g.id, ts.slot_num;
 
--- Пересдача по программированию для 2 курса
-(2, 1, 3, 3, 'Пересдача экзамена', '2026-07-15', '09:00:00+05:00', '10:30:00+05:00'),
+-- ============================================
+-- Дополнительные "особые" занятия с NULL-полями
+-- ============================================
 
--- Летняя практика для 3 курса
-(1, 3, 1, NULL, 'Прохождение практики в кампусе', '2026-07-20', '09:00:00+05:00', '16:00:00+05:00'),
-(1, 3, 1, NULL, 'Прохождение практики в кампусе', '2026-07-21', '09:00:00+05:00', '16:00:00+05:00'),
+-- 1. Группе не назначили преподавателя (teacher_id = NULL)
+INSERT INTO public.lessons_schedule
+    (study_group_id, teacher_id, discipline_id, auditorium_id,
+     lesson_description, lesson_date, time_start, time_end)
+VALUES
+    (1, NULL, 3, 3, 'Физика — преподаватель ещё не назначен',
+     '2026-09-02', '12:20', '13:05'),
+    (2, NULL, 5, 4, 'Английский язык — замена, преподаватель уточняется',
+     '2026-09-09', '12:20', '13:05');
 
--- АВГУСТ 2026
--- Онлайн-занятие по английскому для 1 курса (Летняя школа)
-(3, 4, 4, NULL, 'Летняя школа: разговорный клуб (онлайн)', '2026-08-05', '15:00:00+05:00', '16:30:00+05:00'),
+-- 2. Преподавателю ещё не подобрали группу (study_group_id = NULL)
+INSERT INTO public.lessons_schedule
+    (study_group_id, teacher_id, discipline_id, auditorium_id,
+     lesson_description, lesson_date, time_start, time_end)
+VALUES
+    (NULL, 4, 4, 2, 'История — резервный слот, группа не определена',
+     '2026-09-03', '13:15', '14:00'),
+    (NULL, 6, 6, 1, 'Информатика — резервный слот, группа не определена',
+     '2026-09-16', '13:15', '14:00');
 
--- Пересдача для 1 курса (преподаватель еще не назначен, аудитория не выдана)
-(3, NULL, 3, NULL, 'Пересдача (преподаватель уточняется)', '2026-08-12', '10:00:00+05:00', '11:30:00+05:00'),
+-- 3. Занятие в онлайне — без аудитории (auditorium_id = NULL)
+INSERT INTO public.lessons_schedule
+    (study_group_id, teacher_id, discipline_id, auditorium_id,
+     lesson_description, lesson_date, time_start, time_end)
+VALUES
+    (3, 2, 2, NULL, 'Русский язык — занятие онлайн (Zoom)',
+     '2026-09-04', '09:25', '10:10'),
+    (4, 5, 1, NULL, 'Математика — занятие онлайн (Zoom)',
+     '2026-09-11', '10:30', '11:15'),
+    (1, 1, 3, NULL, 'Физика — занятие онлайн (Zoom)',
+     '2026-09-18', '11:25', '12:10');
 
--- Защита курсовых для 3 курса
-(1, 2, 6, 4, 'Защита курсовых работ', '2026-08-18', '09:00:00+05:00', '13:00:00+05:00'),
-
--- День самостоятельной работы для 1 курса (время не указано, так как студент делает сам)
-(3, NULL, 5, NULL, 'День самостоятельной работы', '2026-08-25', NULL, NULL),
-
--- Консультация для 2 курса (преподаватель заболел, время начала сдвинулось, время конца пока не известно)
-(2, 1, 3, 2, 'Перенесенная консультация', '2026-08-28', '11:00:00+05:00', NULL);
+-- 4. Только предмет известен: ни преподавателя, ни аудитории, ни группы ещё нет
+INSERT INTO public.lessons_schedule
+    (study_group_id, teacher_id, discipline_id, auditorium_id,
+     lesson_description, lesson_date, time_start, time_end)
+VALUES
+    (NULL, NULL, 2, NULL, 'Русский язык — плейсхолдер в расписании, детали не определены',
+     '2026-09-17', '14:10', '14:55');
