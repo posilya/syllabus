@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS public.lessons_schedule (
 CREATE TABLE IF NOT EXISTS public.users (
     id            serial                   PRIMARY KEY,
     full_name     text                     NOT NULL,               -- ФИО пользователя
+    superuser     boolean                  NOT NULL DEFAULT false,
     email         text                     NOT NULL UNIQUE,
     password_hash text                     NOT NULL UNIQUE,
     created_at    timestamp with time zone NOT NULL DEFAULT NOW(),
