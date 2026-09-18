@@ -4,6 +4,7 @@ import { getGroupScheduleByInterval } from '../models/group.js';
 
 import groupRouter from './group.js';
 import teacherRouter from './teacher.js';
+import testRouter from './test.js';
 
 const router = new Router();
 
@@ -13,5 +14,6 @@ router.get('/', async (_, res) => {
 
 router.use('/group', groupRouter);
 router.use('/teacher', teacherRouter);
+router.use('/test', testRouter);
 
 export default router;

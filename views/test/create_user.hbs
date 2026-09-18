@@ -1,0 +1,17 @@
+{{> main/head }}
+<form action="/test/create-user" method="post">
+    <div>
+        <label for="name">Имя пользователя:</label>
+        <input type="text" name="name" id="name">
+    </div>
+    <div>
+        <label for="email">Почта:</label>
+        <input type="email" name="email" id="email">
+    </div>
+    <div>
+        <label for="password">Пароль:</label>
+        <input type="password" name="password" id="password">
+    </div>
+    <input type="submit" value="Создать">
+</form>
+{{> main/footer }}
