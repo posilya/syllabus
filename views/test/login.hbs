@@ -1,0 +1,13 @@
+{{> main/head }}
+<form action="/test/login" method="post">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email">
+    </div>
+    <div>
+        <label for="password">Пароль:</label>
+        <input type="password" name="password" id="password">
+    </div>
+    <input type="submit" value="Войти">
+</form>
+{{> main/footer }}

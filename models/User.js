@@ -8,7 +8,8 @@ import { config } from '../config.js';
 import { UserAlreadyExistsError } from '../errors/index.js';
 
 const sql = {
-    create: fs.readFileSync(path.join(queriesDir, 'user', 'create', 'user.sql'), 'utf8')
+    create: fs.readFileSync(path.join(queriesDir, 'user', 'create', 'user.sql'), 'utf8'),
+    getByEmail: fs.readFileSync(path.join(queriesDir, 'user', 'get', 'by_email.sql'), 'utf8')
 };
 
 export class User {
@@ -30,5 +31,15 @@ export class User {
             }
             throw err;
         }
+    }
+
+    static async getByEmail(email) {
+        const normalizedEmail = email?.toLowerCase().trim();
+        if (!normalizedEmail) {
+            return null;
+        }
+
+        const { rows } = await db.query(sql.getByEmail, [normalizedEmail]);
+        return rows[0] || null;
     }
 }
